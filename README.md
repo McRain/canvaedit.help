@@ -14,7 +14,6 @@ Press to execute commands
 
 You can see a list of your sectors with the following query:
 
-
 query{
 sectors{
  	_id
