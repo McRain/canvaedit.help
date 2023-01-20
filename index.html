@@ -35,7 +35,9 @@
 			width: 100%;
 			text-align: center;
 		}
-
+		.image{
+			text-align: center;
+		}
 	</style>
 
 </head>
@@ -46,7 +48,7 @@
 			General
 		</div>
 		<p>
-				To use user-friendly tools, an API for interaction with the editing server was developed independently. The
+			To use user-friendly tools, an API for interaction with the editing server was developed independently. The
 			editor is available only if the address selected in MetaMask as the main address for the site
 			https://editor.canvaisland.art/ is the owner of any sector. After authorization, the editing console becomes
 			available through the API and sector preview. Apart from the owner of the sector, no one sees the sector
@@ -56,27 +58,29 @@
 		<div class="title">
 			Commands
 		</div>
-			In the editing console, 2 types of server commands (API calls) are available for you: Query - to get data and
+		In the editing console, 2 types of server commands (API calls) are available for you: Query - to get data and
 		Mutation - to change data. When writing commands, don't forget to use ctrl+spacebar - to bring up a list of
 		hints
-		Press to execute commands
 
-		<img src="">
+		Press to execute commands
+		<p class="image"><img src="run.png"></p>		
 
 		You can see a list of your sectors with the following query:
 
 
-		query{
-		sectors{
-		_id
-		name
-		}
-		}
-
-
+		<pre>
+			query{
+				sectors{
+					_id
+					name
+				}
+			}
+		</pre>
 
 		You can find a detailed description of requests and response formats in the API documentation (in the console,
 		on the left, the button ).
+
+		<p class="image"><img src="doc.png"></p>
 
 
 		To change data, you need to use Mutations. For example, to create 1 block of voxels, the following command is
