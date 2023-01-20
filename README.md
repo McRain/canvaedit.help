@@ -7,7 +7,7 @@ The editor is available only if the address selected in MetaMask as the main add
 
 The editor API is built on GraphQL. If you are not familiar with this concept, you can easily find information on the Internet ( https://graphql.org/ ) .
 
-#Commands
+# Commands
 
 In the editing console, 2 types of server commands (API calls) are available for you: Query - to get data and Mutation - to change data. When writing commands, don't forget to use ctrl+spacebar - to bring up a list of hints
 Press to execute commands 
