@@ -33,7 +33,132 @@
 
 <body>
 	<div id="app">
-		HELP
+		General
+
+To use user-friendly tools, an API for interaction with the editing server was developed independently.
+
+The editor is available only if the address selected in MetaMask as the main address for the site https://editor.canvaisland.art/ is the owner of any sector. After authorization, the editing console becomes available through the API and sector preview. Apart from the owner of the sector, no one sees the sector before publication.
+
+The editor API is built on GraphQL. If you are not familiar with this concept, you can easily find information on the Internet ( https://graphql.org/ ) .
+	
+
+
+Commands
+In the editing console, 2 types of server commands (API calls) are available for you: Query - to get data and Mutation - to change data. When writing commands, don't forget to use ctrl+spacebar - to bring up a list of hints
+Press to execute commands 
+
+You can see a list of your sectors with the following query:
+
+
+query{
+sectors{
+ 	_id
+ 	name
+  }
+}
+
+
+
+You can find a detailed description of requests and response formats in the API documentation (in the console, on the left, the button ).
+
+	
+To change data, you need to use Mutations. For example, to create 1 block of voxels, the following command is used (in the token parameter, specify the token of the sector in which you want to make changes):
+mutation{
+  sector(token:"5509…8225"){
+    voxels{
+      add(data:{
+        position:{x:0, y:7, z:0},
+        material:255,
+        brush:0})
+    }
+  }
+}
+
+
+
+After making some changes through the commands, you need to reload the sector display page (3D preview). After commands to change voxels, this is not required, changes are displayed without reloading.
+
+  
+
+A description of the parameters used can be found in the API documentation (see above)
+	It should be clarified that the 'brush' parameter indicates a brush - a preset set of voxels. What these sets look like is shown in the table below:
+
+Image
+Number (brush)
+Description
+
+0
+Simple set of 1 voxel
+
+1
+Large set of 27 voxels (3x3x3)
+
+2
+Set of 3x3x1 voxels
+
+3
+Voxel set 3x1x3
+
+4
+Voxel set 1x3x3
+
+  
+Voxels added by one group can be changed individually.
+
+To add several groups at once, you can specify the list of additions in the parameters:
+mutation{
+  sector(    token:"55098…8225"){
+    voxels{
+      add(
+        data:[
+          {position:{x:0, y:7, z:0}, material:254, brush:0},
+          {position:{x:2, y:8, z:2}, material:255, brush:1},
+          {position:{x:-2, y:7, z:-1}, material:256, brush:2},
+          {position:{x:-3, y:9, z:-2}, material:257, brush:3}
+        ])
+    }
+  }
+}
+
+
+
+The values ​​that are shown on the right are the result of the run, in this case the blocks of voxels that are affected by the changes.
+	
+Preview shows voxel changes without reloading
+
+
+
+
+NFT
+There can be 4 types of NFTs in total, but at the moment it is possible to add only NFTs of the “Image” type to a sector.
+	To add an NFT to a sector, both the sector and the NFT must belong to the address that edits the sector. You can place your NFTs on your sector. The same is true when editing NFTs. And to remove an NFT from a sector, the rights to the NFT are not required, only the rights to the sector. You can remove any NFTs from your sector, even if the NFTs do not belong to you.
+When creating an NFT on a sector, you can specify several parameters.
+
+mutation{
+  sector(token:"5509…8225"){
+    nft(data:{contract:"0xd0AB2…5F0f",      token:"1079"    }){
+      create(type:Image,geometry:{type:BOX,options:[1,1,1]},transform:{position:{x:2,y:8,z:-2}}){
+        _id
+      }
+    }
+  }
+}
+
+
+
+ 
+Publication
+	To publish, use the publish sector command:
+
+mutation{
+  sector(token:"5509…8225"){
+    published
+  }
+}
+
+And the sector will be published soon. After the publish command, the sector (on the island, accessible to other users) will be deactivated, all users located on the sector will be transferred to the nearest active sector. All triggers and counters on the island are reset to their initial state, all objects (even those that were moved by other players) will be set to the positions set in the editor version of the sector. Please note that sector preparation may take some time (10-60 seconds) depending on the number of objects on the sector.
+
+
 	</div>
 
 </body>
